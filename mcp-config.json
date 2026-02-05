@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "legal-cn-server": {
+      "command": "python",
+      "args": ["server.py"],
+      "env": {
+        "CHINA_LAW_DB_PATH": "./db/regulations_2026"
+      }
+    }
+  }
+}
