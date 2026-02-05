@@ -1,0 +1,3 @@
+mcp-sdk>=1.2.0
+python-dotenv
+pandas  # 用于处理法律条文对照表
