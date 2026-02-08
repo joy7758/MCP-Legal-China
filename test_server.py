@@ -76,14 +76,14 @@ async def test_resources():
     print("\n📚 测试: 读取民法典合同编")
     print("-" * 60)
     
-    content = server._get_civil_code_contract()
+    content = server.logic.get_civil_code_contract()
     print(content[:300] + "...")
     
     # 测试合同审查清单
     print("\n\n📚 测试: 读取合同审查清单")
     print("-" * 60)
     
-    content = server._get_contract_checklist()
+    content = server.logic.get_contract_checklist()
     checklist = json.loads(content)
     print(json.dumps(checklist, ensure_ascii=False, indent=2))
     
@@ -91,7 +91,7 @@ async def test_resources():
     print("\n\n📚 测试: 读取违约金评估规则")
     print("-" * 60)
     
-    content = server._get_penalty_rules()
+    content = server.logic.get_penalty_rules()
     rules = json.loads(content)
     print(json.dumps(rules, ensure_ascii=False, indent=2))
 
