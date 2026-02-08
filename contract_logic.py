@@ -8,12 +8,19 @@ MCP-Legal-China Contract Logic
 - 法律建议生成逻辑
 - 法律资源读取
 - 提示词生成
+- 违约金计算的 PID 解析和裁量权评估
 """
 
 import json
 import os
+import logging
 from typing import Dict, Any, List, Optional
+from errors import InvalidParamsError
+from Logic import calculate_liquidated_damages, DiscretionaryWeight
+from legal_resources import LegalResourceProvider
 
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 class ContractLogic:
     """法律业务逻辑处理类"""
@@ -322,3 +329,126 @@ class ContractLogic:
 ## 输出要求
 请生成一份完整的企业风险评估报告,包含以上所有维度的分析。
 """
+
+def resolve_pid_or_value(value: Any, provider: LegalResourceProvider) -> Any:
+    """
+    Helper to resolve a value that might be a PID string.
+    If value is a string starting with "legal://pid/", tries to resolve it.
+    Otherwise returns the value as is.
+    """
+    if isinstance(value, str) and value.startswith("legal://pid/"):
+        resource = provider.get_resource_by_pid(value)
+        if resource:
+            # Assuming the resource content has a 'value' field or is the value itself
+            # For this simplified implementation, we'll assume the resource dictionary *is* the metadata
+            # and we look for specific fields or return the whole thing if it's a primitive
+            return resource
+        else:
+            logger.warning(f"Failed to resolve PID: {value}")
+            return None
+    return value
+
+def evaluate_judicial_discretion(
+    loss_param: Any,
+    performance_param: Any,
+    fault_param: Any,
+    contract_pid: Optional[str] = None,
+    resource_provider: Optional[LegalResourceProvider] = None
+) -> Dict[str, Any]:
+    """
+    Evaluate judicial discretion using the formula V_final = f(Loss, Performance, Fault).
+    
+    Args:
+        loss_param: Actual loss amount or PID resolving to loss data.
+        performance_param: Performance ratio (0.0-1.0) or PID.
+        fault_param: Fault score (1.0-2.0) or PID.
+        contract_pid: Optional PID of the contract being analyzed.
+        resource_provider: Instance of LegalResourceProvider to resolve PIDs.
+        
+    Returns:
+        Dict containing the calculation result, formula components, and relevant PIDs.
+    """
+    
+    if resource_provider is None:
+        resource_provider = LegalResourceProvider()
+
+    # 1. Resolve Inputs (PIDs or raw values)
+    # We expect resolved PIDs to ideally return a dictionary with a 'value' key, 
+    # or we handle raw numeric inputs.
+    
+    def extract_value(param, key_name='amount'):
+        resolved = resolve_pid_or_value(param, resource_provider)
+        if isinstance(resolved, dict):
+            return float(resolved.get(key_name, 0.0)), param if isinstance(param, str) and param.startswith("legal://") else None
+        if isinstance(resolved, (int, float)):
+            return float(resolved), None
+        return 0.0, None
+
+    loss_value, loss_pid = extract_value(loss_param, 'amount')
+    performance_value, performance_pid = extract_value(performance_param, 'ratio')
+    fault_value, fault_pid = extract_value(fault_param, 'score')
+
+    # 2. Validate Inputs
+    if performance_value < 0.0 or performance_value > 1.0:
+        # Clamp or raise? Let's clamp for robustness but log warning
+        logger.warning(f"Performance value {performance_value} out of range, clamping to [0, 1]")
+        performance_value = max(0.0, min(1.0, performance_value))
+        
+    if fault_value < 1.0 or fault_value > 2.0:
+        logger.warning(f"Fault value {fault_value} out of range, clamping to [1, 2]")
+        fault_value = max(1.0, min(2.0, fault_value))
+
+    # 3. Construct DiscretionaryWeight object for Logic.py
+    # We map our generic inputs to the specific class used by existing logic
+    discretion_weight = DiscretionaryWeight(
+        performance_ratio=performance_value,
+        fault_score=fault_value,
+        expectation_interest_included=True, # Defaulting to True for this high-level eval
+        is_consumer_contract=False # Default
+    )
+
+    # 4. Call Core Logic
+    # specific logic from Logic.py: Penalty = L * (1 + gamma)
+    # where gamma = 0.3 * (1 - performance) * fault
+    
+    calculation_result = calculate_liquidated_damages(
+        actual_loss=loss_value,
+        discretionary_weight=discretion_weight,
+        scenario='judicial_evaluation'
+    )
+    
+    # 5. Enrich Result with PIDs and Standards
+    
+    # Get the Discretion Standards PID (we just added it to legal_resources)
+    standards_uri = "legal://judicial-discretion/standards"
+    
+    final_report = {
+        "evaluation_id": f"eval-{id(calculation_result)}", # Simple ID
+        "contract_pid": contract_pid,
+        "standards_reference": standards_uri,
+        "inputs": {
+            "loss": {
+                "value": loss_value,
+                "source_pid": loss_pid
+            },
+            "performance": {
+                "value": performance_value,
+                "source_pid": performance_pid
+            },
+            "fault": {
+                "value": fault_value,
+                "source_pid": fault_pid
+            }
+        },
+        "formula": {
+            "expression": "V_final = Loss * (1 + 0.3 * (1 - Performance) * Fault)",
+            "components": calculation_result.get('gamma_calculation', {})
+        },
+        "result": {
+            "suggested_penalty": calculation_result['final_suggestion'],
+            "base_loss": calculation_result.get('base_loss_L', 0.0),
+            "adjustments": calculation_result.get('adjustments', [])
+        }
+    }
+
+    return final_report

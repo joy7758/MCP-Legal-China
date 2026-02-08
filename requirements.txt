@@ -1,5 +1,7 @@
-mcp>=1.0.0
+mcp>=0.1.0
 fastmcp>=0.1.0
 requests>=2.31.0
 python-dotenv>=1.0.0
 pandas>=2.0.0
+pytest
+pytest-asyncio

@@ -1,0 +1,39 @@
+{
+  "07922f11-43a3-462c-96f4-ab3f42eb9e39": {
+    "handle": "07922f11-43a3-462c-96f4-ab3f42eb9e39",
+    "uri": "legal://pid/07922f11-43a3-462c-96f4-ab3f42eb9e39",
+    "created_at": "2026-02-08T08:41:13.308131Z",
+    "metadata": {
+      "type": "RiskAssessmentReport",
+      "generated_by": "check_contract_risk",
+      "timestamp": "2026-02-08T08:41:13.307975Z"
+    },
+    "content_hash": "d61ceb2a18145cc7a11439eb3570038df3e3ccac242249af869eb84e3637e08b",
+    "parent_pid": null,
+    "content": {
+      "status": "发现风险",
+      "risk_count": 3,
+      "risks": [
+        {
+          "type": "jurisdiction",
+          "level": "高风险",
+          "description": "检测到非中国境内管辖权条款",
+          "suggestion": "建议修改为: 北京仲裁委员会或上海仲裁委员会"
+        },
+        {
+          "type": "penalty",
+          "level": "高风险",
+          "description": "违约金比例可能过高",
+          "suggestion": "根据司法实践,违约金一般不超过合同金额的30%"
+        },
+        {
+          "type": "liability",
+          "level": "高风险",
+          "description": "检测到可能无效的免责条款",
+          "suggestion": "根据《民法典》第506条,免除故意或重大过失责任的条款无效"
+        }
+      ],
+      "recommendation": "建议咨询专业律师进行详细审查"
+    }
+  }
+}
