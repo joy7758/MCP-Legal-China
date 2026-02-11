@@ -6,9 +6,11 @@ MCP-Legal-China 测试脚本
 
 import asyncio
 import json
+import pytest
 from server import LegalCNServer
 
 
+@pytest.mark.asyncio
 async def test_tools():
     """测试 Tools 功能"""
     print("=" * 60)
@@ -64,6 +66,7 @@ async def test_tools():
     print(result[0].text)
 
 
+@pytest.mark.asyncio
 async def test_resources():
     """测试 Resources 功能"""
     print("\n\n" + "=" * 60)
@@ -96,6 +99,7 @@ async def test_resources():
     print(json.dumps(rules, ensure_ascii=False, indent=2))
 
 
+@pytest.mark.asyncio
 async def test_prompts():
     """测试 Prompts 功能"""
     print("\n\n" + "=" * 60)
@@ -123,6 +127,7 @@ async def test_prompts():
     print(result.messages[0].content.text[:400] + "...")
 
 
+@pytest.mark.asyncio
 async def test_config():
     """测试配置"""
     print("\n\n" + "=" * 60)

@@ -227,6 +227,83 @@ class LegalCNServer:
         @self.app.call_tool()
         async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
             return await self._handle_call_tool(name, arguments)
+
+        # 注册 Resources 列表处理器
+        @self.app.list_resources()
+        async def list_resources() -> List[Resource]:
+            """返回所有可用的资源列表"""
+            resources = []
+            for uri, meta in self.legal_resource_provider.resources.items():
+                resources.append(Resource(
+                    uri=uri,
+                    name=meta.get("name", "Unknown Resource"),
+                    description=meta.get("description", f"Legal resource: {meta.get('name')}"),
+                    mimeType="application/json+ld"  # Updated MIME type for JSON-LD wrapped content
+                ))
+            return resources
+        
+        # 注册 Resources 读取处理器
+        @self.app.read_resource()
+        async def read_resource(uri: str) -> str:
+            """读取指定资源的内容 (返回 FDO 兼容的 JSON-LD)"""
+            trace_id = get_trace_id()
+            logger.info(f"Reading resource: {uri}", extra={"trace_id": trace_id})
+            
+            try:
+                content = self.legal_resource_provider.get_resource_content(uri)
+                return content
+            except ValueError as e:
+                logger.warning(f"Resource not found: {uri}", extra={"trace_id": trace_id})
+                raise InvalidParamsError(f"未知资源: {uri}")
+            except Exception as e:
+                logger.exception("Error reading resource", extra={"trace_id": trace_id})
+                raise
+        
+        # 注册 Prompts 列表处理器
+        @self.app.list_prompts()
+        async def list_prompts() -> List[Prompt]:
+            """返回所有可用的提示词模板"""
+            return [
+                Prompt(
+                    name="contract_review_flow",
+                    description="标准合同审查工作流程",
+                    arguments=[
+                        {
+                            "name": "contract_type",
+                            "description": "合同类型 (如: 买卖合同、服务合同等)",
+                            "required": False
+                        }
+                    ]
+                ),
+                Prompt(
+                    name="risk_assessment_template",
+                    description="风险评估报告模板",
+                    arguments=[
+                        {
+                            "name": "company_name",
+                            "description": "公司名称",
+                            "required": True
+                        }
+                    ]
+                )
+            ]
+        
+        # 注册 Prompts 获取处理器
+        @self.app.get_prompt()
+        async def get_prompt(name: str, arguments: Optional[Dict[str, str]] = None) -> GetPromptResult:
+            """获取指定提示词的内容"""
+            
+            if self.debug:
+                print(f"[DEBUG] 获取提示词: {name}, 参数: {arguments}")
+            
+            if name == "contract_review_flow":
+                return self._get_contract_review_prompt(arguments or {})
+            
+            elif name == "risk_assessment_template":
+                return self._get_risk_assessment_prompt(arguments or {})
+            
+            else:
+                raise ValueError(f"未知提示词: {name}")
     
     async def _handle_call_tool(self, name: str, arguments: Dict[str, Any]) -> List[TextContent]:
         """处理工具调用请求 (提取为方法以便测试)"""
@@ -324,83 +401,6 @@ class LegalCNServer:
         
         return processed_contents
         
-    # 注册 Resources 列表处理器
-    @self.app.list_resources()
-    async def list_resources() -> List[Resource]:
-        """返回所有可用的资源列表"""
-        resources = []
-        for uri, meta in self.legal_resource_provider.resources.items():
-            resources.append(Resource(
-                uri=uri,
-                name=meta.get("name", "Unknown Resource"),
-                description=meta.get("description", f"Legal resource: {meta.get('name')}"),
-                mimeType="application/json+ld"  # Updated MIME type for JSON-LD wrapped content
-            ))
-        return resources
-    
-    # 注册 Resources 读取处理器
-    @self.app.read_resource()
-    async def read_resource(uri: str) -> str:
-        """读取指定资源的内容 (返回 FDO 兼容的 JSON-LD)"""
-        trace_id = get_trace_id()
-        logger.info(f"Reading resource: {uri}", extra={"trace_id": trace_id})
-        
-        try:
-            content = self.legal_resource_provider.get_resource_content(uri)
-            return content
-        except ValueError as e:
-            logger.warning(f"Resource not found: {uri}", extra={"trace_id": trace_id})
-            raise InvalidParamsError(f"未知资源: {uri}")
-        except Exception as e:
-            logger.exception("Error reading resource", extra={"trace_id": trace_id})
-            raise
-    
-    # 注册 Prompts 列表处理器
-    @self.app.list_prompts()
-    async def list_prompts() -> List[Prompt]:
-        """返回所有可用的提示词模板"""
-        return [
-            Prompt(
-                name="contract_review_flow",
-                description="标准合同审查工作流程",
-                arguments=[
-                    {
-                        "name": "contract_type",
-                        "description": "合同类型 (如: 买卖合同、服务合同等)",
-                        "required": False
-                    }
-                ]
-            ),
-            Prompt(
-                name="risk_assessment_template",
-                description="风险评估报告模板",
-                arguments=[
-                    {
-                        "name": "company_name",
-                        "description": "公司名称",
-                        "required": True
-                    }
-                ]
-            )
-        ]
-    
-    # 注册 Prompts 获取处理器
-    @self.app.get_prompt()
-    async def get_prompt(name: str, arguments: Optional[Dict[str, str]] = None) -> GetPromptResult:
-        """获取指定提示词的内容"""
-        
-        if self.debug:
-            print(f"[DEBUG] 获取提示词: {name}, 参数: {arguments}")
-        
-        if name == "contract_review_flow":
-            return self._get_contract_review_prompt(arguments or {})
-        
-        elif name == "risk_assessment_template":
-            return self._get_risk_assessment_prompt(arguments or {})
-        
-        else:
-            raise ValueError(f"未知提示词: {name}")
-
     async def _check_contract_risk(self, arguments: Dict[str, Any]) -> List[TextContent]:
         """检查合同风险"""
         contract_text = arguments.get("contract_text", "")

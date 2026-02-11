@@ -55,7 +55,14 @@ class Server:
 
     def list_tools(self):
         def decorator(func):
-            self.tools = func()
+            # In a real scenario, this would register the handler.
+            # Since we are mocking and the handler is async, we shouldn't execute it here
+            # if we can't await it. However, the original mock implementation tried to execute it.
+            # Let's just store the function itself or a dummy list if needed for inspection.
+            # But the original code did `self.tools = func()`, which caused the warning because func is async.
+            # We'll just store the function for now or do nothing, as the tests don't seem to rely on self.tools being populated immediately.
+            # If tests rely on self.tools, we'd need to await it, but we can't await in synchronous __init__.
+            # So we'll just return the function.
             return func
         return decorator
 
