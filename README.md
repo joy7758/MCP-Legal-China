@@ -2,6 +2,13 @@
 # MCP-Legal-China: 中国法律增强插件
 
 ## Bilingual Governance Notice
+
+## Standard Domain Entry / 标准域入口
+
+- Standard ID / 标准编号：`RR-MCP-LC`
+- Registry Row / 注册表定位：https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/STANDARDS_REGISTRY.md#rr-mcp-lc
+- Hub / 总入口：https://github.com/joy7758/RedRock-Constitution
+
 **CN**: 所有标准文档均以中文与英文同步发布，英文为完整翻译版本。  
 **EN**: All standards are published in Chinese and English, and the English content must be a full translation.
 
