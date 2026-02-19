@@ -34,3 +34,17 @@ This project welcomes legal experts, algorithm engineers, and MCP protocol enthu
 ---
 
 *Powered by the 2026 AI Agent Revolution.*
+
+---
+
+## Belongs to RedRock Constitution / 隶属于红岩宪章体系
+
+This repository is part of the RedRock Constitution architecture framework.
+
+Please start from the central governance hub:
+
+https://github.com/joy7758/RedRock-Constitution
+
+本仓库属于红岩宪章体系，请从总入口开始阅读与理解：
+
+https://github.com/joy7758/RedRock-Constitution
