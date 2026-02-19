@@ -60,3 +60,7 @@ This repository implements Standard Domain `RR-MCP-LC` under the RedRock Constit
 Central Governance Hub:
 https://github.com/joy7758/RedRock-Constitution
 
+## Onepager / 一页纸
+
+- `RR-MCP-LC` Onepager / 一页纸：`docs/onepager/RR-MCP-LC_ONEPAGER_CN_EN.md`
+- Hub / 总入口：https://github.com/joy7758/RedRock-Constitution
