@@ -48,3 +48,15 @@ https://github.com/joy7758/RedRock-Constitution
 本仓库属于红岩宪章体系，请从总入口开始阅读与理解：
 
 https://github.com/joy7758/RedRock-Constitution
+
+---
+
+## Standard Domain / 标准域
+
+This repository implements Standard Domain `RR-MCP-LC` under the RedRock Constitution framework.
+
+本仓库实现红岩宪章标准域：`RR-MCP-LC`
+
+Central Governance Hub:
+https://github.com/joy7758/RedRock-Constitution
+
