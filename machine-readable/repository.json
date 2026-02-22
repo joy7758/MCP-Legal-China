@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-02-22T14:59:54Z",
+  "generated_at": "2026-02-22T15:08:15+00:00",
   "repository": "MCP-Legal-China",
   "standard_id": "RR-MCP-LC",
   "status": "Draft",
@@ -39,5 +39,23 @@
       "url": "https://github.com/joy7758/RedRock-Constitution",
       "standard_id": "RR-CORE"
     }
-  ]
+  ],
+  "discoverability": {
+    "version": "1.0.0",
+    "readme_section": "Discoverability Snapshot / 检索曝光摘要",
+    "keywords_density_target": "5-10 high-signal keywords in top README section",
+    "search_phrases_en": [
+      "MCP-Legal-China RR-MCP-LC open standard",
+      "MCP-Legal-China mcp legal-tech github",
+      "RR-MCP-LC mcp reference implementation"
+    ],
+    "search_phrases_cn": [
+      "MCP-Legal-China RR-MCP-LC 标准 规范",
+      "MCP-Legal-China mcp legal-tech 仓库",
+      "RR-MCP-LC 参考实现 红岩 宪章"
+    ],
+    "onepager": "https://github.com/joy7758/MCP-Legal-China/blob/main/docs/onepager/RR-MCP-LC_ONEPAGER_CN_EN.md",
+    "citation_file": "CITATION.cff",
+    "security_file": "SECURITY.md"
+  }
 }

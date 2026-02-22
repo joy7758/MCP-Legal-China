@@ -1,6 +1,42 @@
 # MCP-Legal-China ⚖️
 # MCP-Legal-China: 中国法律增强插件
 
+<!-- SEARCH_VISIBILITY_BEGIN -->
+## Discoverability Snapshot / 检索曝光摘要
+
+- Standard ID / 标准编号: `RR-MCP-LC`
+- Repository / 仓库名: `MCP-Legal-China`
+
+### EN Summary / 英文摘要
+MCP-based legal reasoning and compliance tooling for Chinese legal context.
+
+### CN Summary / 中文摘要
+面向中国法律场景的MCP法律推理与合规工具链。
+
+### SEO Keywords / 检索关键词
+`mcp`, `legal-tech`, `china-law`, `compliance`, `agent-tooling`
+
+### Suggested Search Phrases (EN)
+- MCP-Legal-China RR-MCP-LC open standard
+- MCP-Legal-China mcp legal-tech github
+- RR-MCP-LC mcp reference implementation
+
+### 建议检索短语（中文）
+- MCP-Legal-China RR-MCP-LC 标准 规范
+- MCP-Legal-China mcp legal-tech 仓库
+- RR-MCP-LC 参考实现 红岩 宪章
+
+### Quick Links / 快速入口
+- Governance Hub / 总入口: https://github.com/joy7758/RedRock-Constitution
+- Standards Registry / 标准注册表: https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/STANDARDS_REGISTRY.md#rr-mcp-lc
+- Repos Index / 仓库索引: https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/REPOS_INDEX_CN_EN.md
+- Ecosystem Graph / 生态关系图: https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/ECOSYSTEM_GRAPH_CN_EN.md
+- Onepager / 一页纸: https://github.com/joy7758/MCP-Legal-China/blob/main/docs/onepager/RR-MCP-LC_ONEPAGER_CN_EN.md
+- Citation / 引用元数据: `CITATION.cff`
+- Security Policy / 安全策略: `SECURITY.md`
+- Machine-readable / 机器可读: `machine-readable/repository.json`
+<!-- SEARCH_VISIBILITY_END -->
+
 ## Bilingual Governance Notice
 
 ## Standard Domain Entry / 标准域入口
