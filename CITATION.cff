@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the metadata below."
+title: "MCP-Legal-China"
+type: software
+authors:
+  - family-names: "Zhang"
+    given-names: "Bin"
+repository-code: "https://github.com/joy7758/MCP-Legal-China"
+url: "https://github.com/joy7758/MCP-Legal-China"
+abstract: "MCP-based legal reasoning and compliance tooling for Chinese legal context."
+keywords:
+  - mcp
+  - legal-tech
+  - china-law
+  - compliance
+  - agent-tooling

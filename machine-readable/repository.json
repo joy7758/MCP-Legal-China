@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-02-22T14:59:54Z",
+  "repository": "MCP-Legal-China",
+  "standard_id": "RR-MCP-LC",
+  "status": "Draft",
+  "summary_en": "MCP-based legal reasoning and compliance tooling for Chinese legal context.",
+  "summary_cn": "面向中国法律场景的MCP法律推理与合规工具链。",
+  "github_url": "https://github.com/joy7758/MCP-Legal-China",
+  "governance_hub": "https://github.com/joy7758/RedRock-Constitution",
+  "registry_url": "https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/STANDARDS_REGISTRY.md#rr-mcp-lc",
+  "repos_index_url": "https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/REPOS_INDEX_CN_EN.md",
+  "ecosystem_graph_url": "https://github.com/joy7758/RedRock-Constitution/blob/main/docs/registry/ECOSYSTEM_GRAPH_CN_EN.md",
+  "quality_workflow": "https://github.com/joy7758/MCP-Legal-China/actions/workflows/quality-baseline.yml",
+  "keywords": [
+    "mcp",
+    "legal-tech",
+    "china-law",
+    "compliance",
+    "agent-tooling"
+  ],
+  "language_support": [
+    "zh-CN",
+    "en"
+  ],
+  "related_repositories": [
+    {
+      "name": "AASP-Core",
+      "url": "https://github.com/joy7758/AASP-Core",
+      "standard_id": "RR-AASP"
+    },
+    {
+      "name": "safety-valve-spec",
+      "url": "https://github.com/joy7758/safety-valve-spec",
+      "standard_id": "RR-SVS"
+    },
+    {
+      "name": "RedRock-Constitution",
+      "url": "https://github.com/joy7758/RedRock-Constitution",
+      "standard_id": "RR-CORE"
+    }
+  ]
+}
