@@ -29,3 +29,17 @@ htmlcov/
 # 临时文件
 *.tmp
 .DS_Store
+
+# --- Codex baseline ignore rules ---
+.DS_Store
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+*.egg-info/

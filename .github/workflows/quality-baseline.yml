@@ -1,0 +1,42 @@
+name: quality-baseline
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  hygiene-and-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Block accidental runtime artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          BAD_FILES="$(git ls-files | grep -E '(^|/)(\.DS_Store|__pycache__/|\.venv/|venv/|.*\.pyc$|.*\.pyo$|.*\.egg-info/|target/)' || true)"
+          if [[ -n "${BAD_FILES}" ]]; then
+            echo "Found tracked runtime/build artifacts:"
+            echo "${BAD_FILES}"
+            exit 1
+          fi
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Python syntax smoke check
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-files '*.py' | grep -q .; then
+            git ls-files '*.py' | xargs -r -n 100 python -m py_compile
+          else
+            echo "No Python source files. Skip."
+          fi
