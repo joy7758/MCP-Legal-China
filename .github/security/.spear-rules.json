@@ -1,0 +1,13 @@
+{
+  "trust": {
+    "crossings": [
+      {
+        "name": "tool_execution",
+        "boundary": "agent_to_tool",
+        "failure_signal": "tool_error_or_unexpected_exit",
+        "revocation_pathway": "abort_and_record",
+        "grace_period_ms": 10
+      }
+    ]
+  }
+}
