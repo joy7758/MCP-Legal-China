@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>God Spear Report</title>
+</head>
+<body style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; margin: 24px;">
+  <h1 style="margin:0 0 8px 0;">God Spear Security Report</h1>
+  <div style="margin:0 0 16px 0;color:#444;">
+    Generated at: 2026-02-24T00:02:14.247Z
+  </div>
+
+  <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;margin: 0 0 20px 0;">
+    <div style="min-width:220px;">
+      <div style="font-size:14px;color:#666;">STATUS</div>
+      <div style="font-size:22px;"><span style="padding:2px 8px;border:1px solid #999;border-radius:999px;font-family:ui-monospace,Menlo,monospace;">PASS</span></div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:14px;color:#666;">SRE (0 best → 100 worst)</div>
+      <div style="font-size:22px;">0</div>
+    </div>
+    <div style="min-width:220px;">
+      <div style="font-size:14px;color:#666;">FINDINGS</div>
+      <div style="font-size:22px;">0</div>
+    </div>
+  </div>
+
+  <h2 style="margin: 0 0 10px 0;">Executive Summary</h2>
+  <div style="border:1px solid #ddd;border-radius:12px;padding:12px;margin-bottom:18px;">
+    <p style="margin:0 0 10px 0;">
+      This scan validates whether every trust boundary crossing explicitly declares:
+      <b>failure_signal</b>, <b>revocation_pathway</b>, and <b>grace_period_ms ≤ 10</b>.
+    </p>
+    <p style="margin:0;">
+      Recommendation: if status is not PASS, add missing declarations and re-run the scan until SRE decreases.
+    </p>
+  </div>
+
+  <h2 style="margin: 0 0 10px 0;">Findings</h2>
+  <table style="border-collapse:collapse;width:100%;font-size:14px;">
+    <thead>
+      <tr>
+        <th style="text-align:left;border-bottom:1px solid #ddd;padding:8px;">Severity</th>
+        <th style="text-align:left;border-bottom:1px solid #ddd;padding:8px;">Code</th>
+        <th style="text-align:left;border-bottom:1px solid #ddd;padding:8px;">Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="3" style="padding:8px;">No findings.</td></tr>
+    </tbody>
+  </table>
+
+  <hr style="margin:24px 0;border:none;border-top:1px solid #eee;" />
+  <div style="color:#777;font-size:12px;">
+    Project: MCP-Legal-China · Rules: .github/security/.spear-rules.json
+  </div>
+</body>
+</html>

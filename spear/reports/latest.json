@@ -1,0 +1,17 @@
+{
+  "spec": "god-spear-report",
+  "version": "0.1",
+  "generated_at": "2026-02-24T00:02:14.247Z",
+  "meta": {
+    "project": "MCP-Legal-China",
+    "rules": ".github/security/.spear-rules.json"
+  },
+  "summary": {
+    "status": "PASS",
+    "sre": 0,
+    "score": 100,
+    "hard_fail": false,
+    "findings_count": 0
+  },
+  "findings": []
+}
