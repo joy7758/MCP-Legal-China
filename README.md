@@ -1,6 +1,11 @@
 # MCP-Legal-China ⚖️
 # MCP-Legal-China: 中国法律增强插件
 
+> Legacy lineage repository.
+> Historical context for the earlier DPP / sovereignty / governance formation phase.
+> Not part of the current canonical five-layer verifiable autonomous systems stack.
+> Current canonical entry: [joy7758](https://github.com/joy7758) profile and [digital-biosphere-architecture](https://github.com/joy7758/digital-biosphere-architecture).
+
 <!-- SEARCH_VISIBILITY_BEGIN -->
 ## Discoverability Snapshot / 检索曝光摘要
 
@@ -77,6 +82,10 @@ Anthropic 官方发布的 Legal Plugin 主要基于英美法系。本项目旨�
 - [ ] **Phase 4**: Integration with local legal databases (Judgements Network/Regulations Library). / 对接本地法律数据库 (裁判文书网/法规库)。
 
 ## 🛠️ Developers Join / 开发者加入
+
+## Current relationship to the main line
+
+This repository is an adjacent historical branch from the China-law vertical tooling phase. It remains useful as domain context for legal-compliance applications, but it does not define the current canonical five-layer architecture.
 
 This project welcomes legal experts, algorithm engineers, and MCP protocol enthusiasts. Please submit Issues or PRs.
 本项目欢迎法务专家、算法工程师及 MCP 协议爱好者加入。请提交 Issue 或 PR。
